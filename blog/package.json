@@ -21,6 +21,8 @@
   "homepage": "https://github.com/spac3-cowboy/projectx#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "express-edge": "^2.0.2",
+    "mongoose": "^7.0.2",
     "nodemon": "^2.0.21",
     "startbootstrap-clean-blog": "^6.0.8"
   }
