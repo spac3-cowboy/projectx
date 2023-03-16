@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const app = new express();
 
-mongoose.connect('mongodb+srv://bhudipta:Himalaya827@cluster0.lskqghg.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/blog', { useNewUrlParser: true })
     .then(() => 'You are now connected to Mongo!')
     .catch(err => console.error('Something went wrong', err))
 
@@ -33,7 +33,11 @@ app.get('/post', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'pages/post.html'));
     });
 
+app.get('/addnewpost', (req, res) => {
+        res.render('create')
+    });
 
-app.listen(4000, () => {
-    console.log('App listening on port 4000!');
+
+app.listen(5000, () => {
+    console.log('App listening on port 5000')
     });
