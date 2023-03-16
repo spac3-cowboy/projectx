@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const Post = require('./database/models/Post');
+
 const app = new express();
 
 mongoose.connect('mongodb://localhost:27017/blog', {
@@ -23,8 +25,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get('/', (req, res) => {
-    res.render('index');
+app.get('/', async (req, res) => {
+    const posts = await Post.find({})
+    res.render('index', {
+        posts
+    });
 });
 
 
@@ -45,9 +50,20 @@ app.get('/posts/add', (req, res) => {
 });
 
 app.post('/posts/store', (req, res) => {
-    console.log(req.body)
-    res.redirect('/')
-});
+    const newPost = new Post({
+      title: req.body.title,
+      description: req.body.description,
+      content: req.body.content
+    });
+  
+    newPost.save().then(savedPost => {
+        console.log('New Post Saved');
+        res.redirect('/');
+    }).catch(error => {
+        console.log(error);
+    });
+  });
+  
 
 
 app.listen(5000, () => {
